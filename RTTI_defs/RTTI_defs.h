@@ -143,7 +143,7 @@ namespace RTTI
 			//auto pFun = [&](char* buffer) {return  std::dynamic_pointer_cast<CadKernelObject>(std::shared_ptr<Class>(reinterpret_cast<Class*>(buffer))); };
 		}
 
-		ClassDefinition(const std::string& a_classname, const unsigned short a_usVers, const std::vector<std::shared_ptr<IDefinition>>& a_init) : IDefinition(a_classname, a_usVers, a_init)
+		ClassDefinition(const std::string& a_classname, const unsigned short a_usVers, const std::vector<IDefinitionPtr>& a_init) : IDefinition(a_classname, a_usVers, a_init)
 		{
 			//auto pFun = [&](char* buffer) {return  std::dynamic_pointer_cast<CadKernelObject>(std::shared_ptr<Class>(reinterpret_cast<Class*>(buffer))); };
 		}
@@ -226,7 +226,7 @@ namespace RTTI
 	}
 
 	//------------------------------------------------------------------------------------------------------------------------
-
+	/*@brief encapsulate vector of definition in class because creation with simple functions doesn't work*/
 	template<typename A, typename ...Types>
 	class DefinitionList
 	{
