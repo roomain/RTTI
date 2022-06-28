@@ -15,11 +15,11 @@ class ProtocolExtension;
 
 namespace RTTI
 {
-    class IDefinition;
+	class IDefinition;
 
 	template<typename Definition>
-    class DefTree : public std::enable_shared_from_this<DefTree<Definition>>
-    {
+	class DefTree : public std::enable_shared_from_this<DefTree<Definition>>
+	{
 	protected:
 		using DefPtr = std::shared_ptr<Definition>;
 		std::vector<DefPtr> m_vParentsDef; /*@brief link to metaclasses definitions*/
@@ -27,19 +27,19 @@ namespace RTTI
 		inline auto cbegin()const noexcept { return m_vParentsDef.cbegin(); }
 		inline auto cend()const noexcept { return m_vParentsDef.cend(); }
 
-        DefTree() = default;
-        DefTree(std::initializer_list<DefPtr> a_init) : m_vParentsDef{a_init}
-        {
-            //
-        }
+		DefTree() = default;
+		DefTree(std::initializer_list<DefPtr> a_init) : m_vParentsDef{a_init}
+		{
+		    //
+		}
 
-        ~DefTree()
+		~DefTree()
 		{
 			// get reference count of this
 			//assert(weak_from_this().use_count() == 0, "Class is always referenced !");
 		}
 
-        /*
+		/*
 		* @brief check if this inherits from pDef (search recursively)
 		* @param pDef: RTTI definition
 		* @return true if this inherist from pDef
@@ -58,12 +58,12 @@ namespace RTTI
 			}
 			return bFound;
 		}
-    };
+	};
 	    
-    class IDefinition : public DefTree<IDefinition>
-    {
-    protected:        
-        /*@brief definition version number*/
+	class IDefinition : public DefTree<IDefinition>
+	{
+	protected:        
+		/*@brief definition version number*/
 		unsigned short m_usVersion;
 
 		/*@brief undo / redo protocol extension */
@@ -75,12 +75,12 @@ namespace RTTI
 		/*@brief class name*/
 		std::string m_sClassName;
 
-        
-        IDefinition() = delete;
-		IDefinition(const std::string& a_className, const unsigned short a_usVers);
-        IDefinition(const std::string& a_className, const unsigned short a_usVers, const std::vector<std::shared_ptr<IDefinition>>& a_init);
 
-    public:
+		IDefinition() = delete;
+		IDefinition(const std::string& a_className, const unsigned short a_usVers);
+		IDefinition(const std::string& a_className, const unsigned short a_usVers, const std::vector<std::shared_ptr<IDefinition>>& a_init);
+
+	public:
 
 		/*@brief set undo/redo protocol extension*/
 		inline std::shared_ptr<UndoRedoProtocolExtension> undoRedoPE()const noexcept { return m_pUndoRedoPE; }
@@ -122,15 +122,14 @@ namespace RTTI
 
 		/*@brief size of described class*/
 		virtual size_t classSize()const noexcept = 0;
-    };
+	};
 	using IDefinitionPtr = std::shared_ptr<IDefinition>;
-    //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    /*@brief RTTI Class template definition*/
+    	/*@brief RTTI Class template definition*/
 	template<typename Class>
 	class ClassDefinition : public IDefinition
 	{
-
 	public:
 		ClassDefinition() : m_usVersion{ 0 } {}
 
@@ -194,18 +193,18 @@ namespace RTTI
 		return checkAllreadyDefined<others...>();
 	}
 
-    /*@brief Check if RTTI definition of classname already exist => produce an exception if not*/
-    template<typename Type, typename ...others>
-    void checkAllreadyDefined()
-    {
-        if(Type::definition())
-            throw Exception(Exception::Type::already_defined, Type::definition()->className());
+	/*@brief Check if RTTI definition of classname already exist => produce an exception if not*/
+	template<typename Type, typename ...others>
+	void checkAllreadyDefined()
+	{
+	if(Type::definition())
+	    throw Exception(Exception::Type::already_defined, Type::definition()->className());
 		checkAllreadyDefinedAux(std::tuple<others...>());
-    }
+	}
 
 
 	//------------------------------------------------------------------------------------------------------------------------
-    /*@brief Check if RTTI definition of classname not exist => produce an exception if not*/
+    	/*@brief Check if RTTI definition of classname not exist => produce an exception if not*/
 	template<typename Type, typename ...others>
 	void checkNotDefined();
 
@@ -260,26 +259,5 @@ namespace RTTI
 			return m_vDefs;
 		}
 	};
-
-	template<typename Type, typename ...others>
-	void listDefinitions(std::vector<IDefinitionPtr>& vec);
-
-	inline void listDefinitionsAux(std::vector<IDefinitionPtr>& vec, std::tuple<>&& a_tuple) {}
-
-	template<typename ...others>
-	void listDefinitionsAux(std::vector<IDefinitionPtr>& vec, std::tuple<others...>&& a_tuple)
-	{
-		listDefinitions<others...>(vec);
-	}
-
-	/*@brief Check if RTTI definition of classname already exist => produce an exception if not*/
-	template<typename Type, typename ...others>
-	void listDefinitions(std::vector<IDefinitionPtr>& vec)
-	{
-		if (Type::definition())
-			throw Exception(Exception::Type::parent_not_defined, typeid(Type).name());
-		vec.push_back(Type::definition());
-		listDefinitionsAux<others...>(vec, std::tuple<others...>());
-	}
 
 }
