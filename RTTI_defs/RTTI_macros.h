@@ -65,7 +65,7 @@ public: \
 	static inline void initDef() \
 	{\
 		checkAllreadyDefined<classname>(); \
-        classname::m_definition = std::make_shared<ClassDefinition<classname>>(std::string(#classname), Version);\
+        	classname::m_definition = std::make_shared<ClassDefinition<classname>>(std::string(#classname), Version);\
 	}
 
 
