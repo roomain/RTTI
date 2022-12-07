@@ -36,3 +36,5 @@
 **/.vs/
 **/Debug/
 **/Release/
+VS*/
+rtti-cppcheck-build-dir/

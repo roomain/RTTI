@@ -1,3 +1,0 @@
-RTTI_defs.a1:Debug|x64:D:/ProjetsGIT/RTTI/RTTI/RTTI_defs.cpp
-Tests_RTTI.a1:Debug|x64:D:/ProjetsGIT/RTTI/unit_tests/Tests_RTTI.cpp
-rtti_res.a1:Debug|x64:D:/ProjetsGIT/RTTI/unit_tests/rtti_res.cpp

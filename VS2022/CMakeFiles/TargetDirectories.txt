@@ -1,3 +1,0 @@
-D:/ProjetsGIT/RTTI/VS2022/CMakeFiles/ALL_BUILD.dir
-D:/ProjetsGIT/RTTI/VS2022/CMakeFiles/ZERO_CHECK.dir
-D:/ProjetsGIT/RTTI/VS2022/unit_tests/CMakeFiles/unit_tests.dir

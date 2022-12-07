@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<analyzerinfo hash="1632871552958294426">
-        <error id="syntaxError" severity="error" msg="syntax error" verbose="syntax error" file0="D:/ProjetsGIT/RTTI/unit_tests/Tests_RTTI.cpp">
-            <location file="D:\ProjetsGIT\RTTI\unit_tests\Tests_RTTI.cpp" line="48" column="3"/>
-        </error>
-</analyzerinfo>
