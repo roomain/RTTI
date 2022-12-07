@@ -15,25 +15,24 @@ class ProtocolExtension;
 
 namespace RTTI
 {
-	class IDefinition;
-
-	template<typename Definition>
-	class DefTree : public std::enable_shared_from_this<DefTree<Definition>>
+	template<typename Def>
+	class DefinitionNode : public std::enable_shared_from_this<DefinitionNode<Def>>
 	{
 	protected:
-		using DefPtr = std::shared_ptr<Definition>;
-		std::vector<DefPtr> m_vParentsDef; /*@brief link to metaclasses definitions*/
+		using DefinitionPtr = std::shared_ptr<Def>;
+		std::vector<DefinitionPtr> m_vParentsDef;	/*!< link to parent definitions*/
 
+		/*iterators on parents*/
 		inline auto cbegin()const noexcept { return m_vParentsDef.cbegin(); }
 		inline auto cend()const noexcept { return m_vParentsDef.cend(); }
 
-		DefTree() = default;
-		DefTree(std::initializer_list<DefPtr> a_init) : m_vParentsDef{a_init}
+		DefinitionNode() = default;
+		DefinitionNode(std::initializer_list<DefinitionPtr> a_init) : m_vParentsDef{ a_init }
 		{
-		    //
+			//
 		}
 
-		~DefTree()
+		~DefinitionNode()
 		{
 			// get reference count of this
 			//assert(weak_from_this().use_count() == 0, "Class is always referenced !");
@@ -44,7 +43,7 @@ namespace RTTI
 		* @param pDef: RTTI definition
 		* @return true if this inherist from pDef
 		*/
-		inline bool inheritFrom(const DefPtr& pDef)const noexcept
+		[[nodiscard]]inline bool inheritFrom(const DefinitionPtr& pDef)const noexcept
 		{
 			bool bFound = std::find(m_vParentsDef.begin(), m_vParentsDef.end(), pDef) != m_vParentsDef.end();
 			if (!bFound)
@@ -59,22 +58,15 @@ namespace RTTI
 			return bFound;
 		}
 	};
+
 	    
-	class IDefinition : public DefTree<IDefinition>
+	class IDefinition : public DefinitionNode<IDefinition>
 	{
-	protected:        
-		/*@brief definition version number*/
-		unsigned short m_usVersion;
-
-		/*@brief undo / redo protocol extension */
-		std::shared_ptr<UndoRedoProtocolExtension> m_pUndoRedoPE;
-
-		/*@brief Links to protocol extension use by defined class*/
-		std::vector<std::shared_ptr<ProtocolExtension>>	m_vProtocoleExt;
-
-		/*@brief class name*/
-		std::string m_sClassName;
-
+	protected:
+		std::string m_sClassName;										/*!< class name*/
+		unsigned short m_usVersion;										/*!< version of definition*/
+		std::shared_ptr<UndoRedoProtocolExtension> m_pUndoRedoPE;		/*!< undo/redo protocol extension*/
+		std::vector<std::shared_ptr<ProtocolExtension>>	m_vProtocoleExt;/*!< link to generic protocols extensions*/
 
 		IDefinition() = delete;
 		IDefinition(const std::string& a_className, const unsigned short a_usVers);
@@ -83,7 +75,7 @@ namespace RTTI
 	public:
 
 		/*@brief set undo/redo protocol extension*/
-		inline std::shared_ptr<UndoRedoProtocolExtension> undoRedoPE()const noexcept { return m_pUndoRedoPE; }
+		[[nodiscard]] inline std::shared_ptr<UndoRedoProtocolExtension> undoRedoPE()const noexcept { return m_pUndoRedoPE; }
 
 		/*@brief get undo/redo protocol extension*/
 		void setUndoRedoPE(std::shared_ptr<UndoRedoProtocolExtension> protocolExt) { m_pUndoRedoPE = protocolExt; }
@@ -93,35 +85,35 @@ namespace RTTI
 		* @param pDef class definition to test
 		* @brief return true if defined class is inherited class defined by pDef
 		*/
-		virtual bool isKindOf(const std::shared_ptr<IDefinition>& pDef)const noexcept;
+		[[nodiscard]] virtual bool isKindOf(const std::shared_ptr<IDefinition>& pDef)const noexcept;
 
 		/*
 		* @return class name
 		*/
-		inline std::string className()const { return m_sClassName; }
+		[[nodiscard]] inline std::string className()const { return m_sClassName; }
 
 		/*
 		* @brief check is defined class is same class defined by pDef
 		* @param pDef class definition to test
 		* @brief return true if defined class is same class defined by pDef
 		*/
-		virtual bool isSame(const std::shared_ptr<IDefinition>& pDef)const noexcept;
+		[[nodiscard]] virtual bool isSame(const std::shared_ptr<IDefinition>& pDef)const noexcept;
 
 		void registerProtocolExt(const std::shared_ptr<ProtocolExtension>& protocol);
 		bool unregisterProtocolExt(const std::shared_ptr<IDefinition>& pDef);
-		std::shared_ptr<ProtocolExtension> getProtocolExt(const std::shared_ptr<IDefinition>& pDef)const;
+		[[nodiscard]] std::shared_ptr<ProtocolExtension> getProtocolExt(const std::shared_ptr<IDefinition>& pDef)const;
 
 		template<typename Protocol>
-		inline std::shared_ptr<Protocol> getProtocolExt()const
+		[[nodiscard]] inline std::shared_ptr<Protocol> getProtocolExt()const
 		{
 			return std::dynamic_pointer_cast<Protocol>(getProtocolExt(Protocol::definition()));
 		}
 
 		/*@return version number of definition*/
-		inline unsigned short version()const noexcept { return m_usVersion; }
+		[[nodiscard]] inline unsigned short version()const noexcept { return m_usVersion; }
 
 		/*@brief size of described class*/
-		virtual size_t classSize()const noexcept = 0;
+		[[nodiscard]] virtual size_t classSize()const noexcept = 0;
 	};
 	using IDefinitionPtr = std::shared_ptr<IDefinition>;
     	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -133,7 +125,7 @@ namespace RTTI
 	public:
 		ClassDefinition() : m_usVersion{ 0 } {}
 
-		ClassDefinition(const unsigned short a_usVers) : IDefinition{ a_usVers }
+		explicit ClassDefinition(const unsigned short a_usVers) : IDefinition{ a_usVers }
 		{
 			//auto pFun = [&](char* buffer) {return  std::dynamic_pointer_cast<CadKernelObject>(std::shared_ptr<Class>(reinterpret_cast<Class*>(buffer))); };
 		}
@@ -148,13 +140,12 @@ namespace RTTI
 			//auto pFun = [&](char* buffer) {return  std::dynamic_pointer_cast<CadKernelObject>(std::shared_ptr<Class>(reinterpret_cast<Class*>(buffer))); };
 		}
 
-
-		inline std::shared_ptr<Class> createObject()
+		[[nodiscard]] inline std::shared_ptr<Class> createObject()
 		{
 			return std::make_shared<Class>();
 		}
 
-		size_t classSize()const noexcept final
+		[[nodiscard]] size_t classSize()const noexcept final
 		{
 			return sizeof(Class);
 		}
@@ -176,10 +167,11 @@ namespace RTTI
 		std::string		m_info;
 
 	public:
-		Exception(Type errType, const std::string& info = "");
-		Type type()const noexcept;
-		std::string message()const noexcept;
-		const char* what()const override;
+		explicit Exception(Type errType, const std::string& info = "");
+		Exception() = delete;
+		[[nodiscard]] Type type()const noexcept;
+		[[nodiscard]] std::string message()const noexcept;
+		const char* what()const override;/*!< NOT USED*/
 	};
 
 	template<typename Type, typename ...others>

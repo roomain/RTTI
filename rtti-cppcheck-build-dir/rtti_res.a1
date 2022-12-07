@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="6265614506041645211">
+        <error id="noExplicitConstructor" severity="style" msg="Class &apos;RTTIParent&apos; has a constructor with 1 argument that is not explicit." verbose="Class &apos;RTTIParent&apos; has a constructor with 1 argument that is not explicit. Such constructors should in general be explicit for type safety reasons. Using the explicit keyword in the constructor means some mistakes when using the class can be avoided." cwe="398" file0="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.cpp">
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="28" column="2"/>
+            <symbol>RTTIParent</symbol>
+        </error>
+        <error id="noExplicitConstructor" severity="style" msg="Class &apos;RTTIParent1&apos; has a constructor with 1 argument that is not explicit." verbose="Class &apos;RTTIParent1&apos; has a constructor with 1 argument that is not explicit. Such constructors should in general be explicit for type safety reasons. Using the explicit keyword in the constructor means some mistakes when using the class can be avoided." cwe="398" file0="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.cpp">
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="40" column="2"/>
+            <symbol>RTTIParent1</symbol>
+        </error>
+        <error id="noExplicitConstructor" severity="style" msg="Class &apos;RTTIFirstChild&apos; has a constructor with 1 argument that is not explicit." verbose="Class &apos;RTTIFirstChild&apos; has a constructor with 1 argument that is not explicit. Such constructors should in general be explicit for type safety reasons. Using the explicit keyword in the constructor means some mistakes when using the class can be avoided." cwe="398" file0="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.cpp">
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="49" column="2"/>
+            <symbol>RTTIFirstChild</symbol>
+        </error>
+        <error id="noExplicitConstructor" severity="style" msg="Class &apos;RTTISecondChild&apos; has a constructor with 1 argument that is not explicit." verbose="Class &apos;RTTISecondChild&apos; has a constructor with 1 argument that is not explicit. Such constructors should in general be explicit for type safety reasons. Using the explicit keyword in the constructor means some mistakes when using the class can be avoided." cwe="398" file0="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.cpp">
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="57" column="2"/>
+            <symbol>RTTISecondChild</symbol>
+        </error>
+        <error id="noExplicitConstructor" severity="style" msg="Class &apos;RTTIGrandChild&apos; has a constructor with 1 argument that is not explicit." verbose="Class &apos;RTTIGrandChild&apos; has a constructor with 1 argument that is not explicit. Such constructors should in general be explicit for type safety reasons. Using the explicit keyword in the constructor means some mistakes when using the class can be avoided." cwe="398" file0="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.cpp">
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="66" column="2"/>
+            <symbol>RTTIGrandChild</symbol>
+        </error>
+        <error id="missingOverride" severity="style" msg="The function &apos;isA&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." verbose="The function &apos;isA&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." file0="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.cpp">
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="9" column="2" info="Function in derived class"/>
+            <location file="D:\ProjetsGIT\RTTI\RTTI\ProtocolExtension.h" line="13" column="5" info="Virtual function in base class"/>
+            <symbol>isA</symbol>
+        </error>
+        <error id="missingOverride" severity="style" msg="The function &apos;isKindOf&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." verbose="The function &apos;isKindOf&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." file0="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.cpp">
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="9" column="2" info="Function in derived class"/>
+            <location file="D:\ProjetsGIT\RTTI\RTTI\ProtocolExtension.h" line="13" column="5" info="Virtual function in base class"/>
+            <symbol>isKindOf</symbol>
+        </error>
+        <error id="missingOverride" severity="style" msg="The function &apos;isA&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." verbose="The function &apos;isA&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." file0="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.cpp">
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="16" column="2" info="Function in derived class"/>
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="9" column="2" info="Virtual function in base class"/>
+            <symbol>isA</symbol>
+        </error>
+        <error id="missingOverride" severity="style" msg="The function &apos;isKindOf&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." verbose="The function &apos;isKindOf&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." file0="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.cpp">
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="16" column="2" info="Function in derived class"/>
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="9" column="2" info="Virtual function in base class"/>
+            <symbol>isKindOf</symbol>
+        </error>
+        <error id="missingOverride" severity="style" msg="The function &apos;isA&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." verbose="The function &apos;isA&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." file0="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.cpp">
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="47" column="2" info="Function in derived class"/>
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="23" column="2" info="Virtual function in base class"/>
+            <symbol>isA</symbol>
+        </error>
+        <error id="missingOverride" severity="style" msg="The function &apos;isKindOf&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." verbose="The function &apos;isKindOf&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." file0="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.cpp">
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="47" column="2" info="Function in derived class"/>
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="23" column="2" info="Virtual function in base class"/>
+            <symbol>isKindOf</symbol>
+        </error>
+        <error id="missingOverride" severity="style" msg="The function &apos;isA&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." verbose="The function &apos;isA&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." file0="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.cpp">
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="55" column="2" info="Function in derived class"/>
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="23" column="2" info="Virtual function in base class"/>
+            <symbol>isA</symbol>
+        </error>
+        <error id="missingOverride" severity="style" msg="The function &apos;isKindOf&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." verbose="The function &apos;isKindOf&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." file0="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.cpp">
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="55" column="2" info="Function in derived class"/>
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="23" column="2" info="Virtual function in base class"/>
+            <symbol>isKindOf</symbol>
+        </error>
+        <error id="missingOverride" severity="style" msg="The function &apos;isA&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." verbose="The function &apos;isA&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." file0="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.cpp">
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="64" column="2" info="Function in derived class"/>
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="47" column="2" info="Virtual function in base class"/>
+            <symbol>isA</symbol>
+        </error>
+        <error id="missingOverride" severity="style" msg="The function &apos;isKindOf&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." verbose="The function &apos;isKindOf&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." file0="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.cpp">
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="64" column="2" info="Function in derived class"/>
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="47" column="2" info="Virtual function in base class"/>
+            <symbol>isKindOf</symbol>
+        </error>
+        <error id="missingOverride" severity="style" msg="The function &apos;isA&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." verbose="The function &apos;isA&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." file0="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.cpp">
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="72" column="2" info="Function in derived class"/>
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="23" column="2" info="Virtual function in base class"/>
+            <symbol>isA</symbol>
+        </error>
+        <error id="missingOverride" severity="style" msg="The function &apos;isKindOf&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." verbose="The function &apos;isKindOf&apos; overrides a function in a base class but is not marked with a &apos;override&apos; specifier." file0="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.cpp">
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="72" column="2" info="Function in derived class"/>
+            <location file="D:\ProjetsGIT\RTTI\unit_tests\rtti_res.h" line="23" column="2" info="Virtual function in base class"/>
+            <symbol>isKindOf</symbol>
+        </error>
+  <FileInfo check="Class">
+<class name="ProtocolExtension" file="D:/ProjetsGIT/RTTI/RTTI/ProtocolExtension.h" line="11" col="1" hash="14682870585287286946"/>
+<class name="ParentPE" file="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.h" line="7" col="1" hash="9026282035968976030"/>
+<class name="ChildPE" file="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.h" line="14" col="1" hash="14750061442597095867"/>
+<class name="RTTIParent" file="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.h" line="21" col="1" hash="3347234076407103718"/>
+<class name="RTTIParent1" file="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.h" line="33" col="1" hash="6515887657682426743"/>
+<class name="RTTIFirstChild" file="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.h" line="45" col="1" hash="2523619740440217449"/>
+<class name="RTTISecondChild" file="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.h" line="53" col="1" hash="16317822980226225068"/>
+<class name="RTTIGrandChild" file="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.h" line="62" col="1" hash="9313063364266749623"/>
+<class name="RTTISecondChildMult" file="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.h" line="70" col="1" hash="13860428675874774904"/>
+<class name="RTTIDecorator" file="D:/ProjetsGIT/RTTI/unit_tests/rtti_res.h" line="79" col="1" hash="12610356401760169475"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="data" lineNumber="7"/>
+    <functiondecl functionName="data1" lineNumber="16"/>
+    <functioncall functionName="ChildPE"/>
+    <functioncall functionName="ClassDefinition"/>
+    <functioncall functionName="ClassDefinition &lt; ChildPE &gt;"/>
+    <functioncall functionName="ClassDefinition &lt; ParentPE &gt;"/>
+    <functioncall functionName="ClassDefinition &lt; ProtocolExtension &gt;"/>
+    <functioncall functionName="ClassDefinition &lt; RTTIFirstChild &gt;"/>
+    <functioncall functionName="ClassDefinition &lt; RTTIGrandChild &gt;"/>
+    <functioncall functionName="ClassDefinition &lt; RTTIParent &gt;"/>
+    <functioncall functionName="ClassDefinition &lt; RTTIParent1 &gt;"/>
+    <functioncall functionName="ClassDefinition &lt; RTTISecondChild &gt;"/>
+    <functioncall functionName="ClassDefinition &lt; RTTISecondChildMult &gt;"/>
+    <functioncall functionName="DefinitionList"/>
+    <functioncall functionName="DefinitionList &lt; ParentPE &gt;"/>
+    <functioncall functionName="DefinitionList &lt; ProtocolExtension &gt;"/>
+    <functioncall functionName="DefinitionList &lt; RTTIFirstChild &gt;"/>
+    <functioncall functionName="DefinitionList &lt; RTTIParent , RTTIParent1 &gt;"/>
+    <functioncall functionName="DefinitionList &lt; RTTIParent &gt;"/>
+    <functioncall functionName="DefinitionNode &lt; IDefinition &gt;"/>
+    <functioncall functionName="Exception"/>
+    <functioncall functionName="IDefinition"/>
+    <functioncall functionName="IDefinitionPtr"/>
+    <functioncall functionName="ParentPE"/>
+    <functioncall functionName="Protocol"/>
+    <functioncall functionName="ProtocolExtension"/>
+    <functioncall functionName="RTTIDecorator"/>
+    <functioncall functionName="RTTIFirstChild"/>
+    <functioncall functionName="RTTIGrandChild"/>
+    <functioncall functionName="RTTIParent"/>
+    <functioncall functionName="RTTIParent1"/>
+    <functioncall functionName="RTTISecondChild"/>
+    <functioncall functionName="RTTISecondChildMult"/>
+    <functioncall functionName="Type"/>
+    <functioncall functionName="Types"/>
+    <functioncall functionName="UndoRedoProtocolExtension"/>
+    <functioncall functionName="a_classname"/>
+    <functioncall functionName="a_init"/>
+    <functioncall functionName="a_usVers"/>
+    <functioncall functionName="already_defined"/>
+    <functioncall functionName="args"/>
+    <functioncall functionName="bFound"/>
+    <functioncall functionName="begin"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="cbegin"/>
+    <functioncall functionName="cend"/>
+    <functioncall functionName="checkAllreadyDefined"/>
+    <functioncall functionName="checkAllreadyDefined &lt; ChildPE &gt;"/>
+    <functioncall functionName="checkAllreadyDefined &lt; ParentPE &gt;"/>
+    <functioncall functionName="checkAllreadyDefined &lt; ProtocolExtension &gt;"/>
+    <functioncall functionName="checkAllreadyDefined &lt; RTTIFirstChild &gt;"/>
+    <functioncall functionName="checkAllreadyDefined &lt; RTTIGrandChild &gt;"/>
+    <functioncall functionName="checkAllreadyDefined &lt; RTTIParent &gt;"/>
+    <functioncall functionName="checkAllreadyDefined &lt; RTTIParent1 &gt;"/>
+    <functioncall functionName="checkAllreadyDefined &lt; RTTISecondChild &gt;"/>
+    <functioncall functionName="checkAllreadyDefined &lt; RTTISecondChildMult &gt;"/>
+    <functioncall functionName="checkAllreadyDefinedAux"/>
+    <functioncall functionName="checkNotDefined"/>
+    <functioncall functionName="checkNotDefined &lt; ChildPE &gt;"/>
+    <functioncall functionName="checkNotDefined &lt; ParentPE &gt;"/>
+    <functioncall functionName="checkNotDefined &lt; ProtocolExtension &gt;"/>
+    <functioncall functionName="checkNotDefined &lt; RTTIFirstChild &gt;"/>
+    <functioncall functionName="checkNotDefined &lt; RTTIGrandChild &gt;"/>
+    <functioncall functionName="checkNotDefined &lt; RTTIParent , RTTIParent1 &gt;"/>
+    <functioncall functionName="checkNotDefined &lt; RTTIParent &gt;"/>
+    <functioncall functionName="checkNotDefined &lt; RTTIParent1 &gt;"/>
+    <functioncall functionName="checkNotDefined &lt; RTTISecondChild &gt;"/>
+    <functioncall functionName="checkNotDefined &lt; RTTISecondChildMult &gt;"/>
+    <functioncall functionName="checkNotDefinedAux"/>
+    <functioncall functionName="className"/>
+    <functioncall functionName="const"/>
+    <functioncall functionName="const_cast"/>
+    <functioncall functionName="dVal"/>
+    <functioncall functionName="def"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="definition"/>
+    <functioncall functionName="delete"/>
+    <functioncall functionName="dynamic_cast"/>
+    <functioncall functionName="dynamic_pointer_cast"/>
+    <functioncall functionName="end"/>
+    <functioncall functionName="find"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="get"/>
+    <functioncall functionName="getProtocolExt"/>
+    <functioncall functionName="iVal"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inheritFrom"/>
+    <functioncall functionName="internfillVec"/>
+    <functioncall functionName="internfillVec &lt; ParentPE , Types ... &gt;"/>
+    <functioncall functionName="internfillVec &lt; ProtocolExtension , Types ... &gt;"/>
+    <functioncall functionName="internfillVec &lt; RTTIFirstChild , Types ... &gt;"/>
+    <functioncall functionName="internfillVec &lt; RTTIParent , RTTIParent1 ... &gt;"/>
+    <functioncall functionName="internfillVec &lt; RTTIParent , Types ... &gt;"/>
+    <functioncall functionName="internfillVecAux"/>
+    <functioncall functionName="isKindOf"/>
+    <functioncall functionName="m_vDefs"/>
+    <functioncall functionName="m_vParentsDef"/>
+    <functioncall functionName="make_shared"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="noexcept"/>
+    <functioncall functionName="null_definition"/>
+    <functioncall functionName="nullptr"/>
+    <functioncall functionName="others"/>
+    <functioncall functionName="pDef"/>
+    <functioncall functionName="parent_not_defined"/>
+    <functioncall functionName="protocolExt"/>
+    <functioncall functionName="push_back"/>
+    <functioncall functionName="shared_ptr"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="string"/>
+    <functioncall functionName="this"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="tuple"/>
+    <functioncall functionName="typeid"/>
+    <functioncall functionName="typename"/>
+    <functioncall functionName="vec"/>
+    <functioncall functionName="vector"/>
+  </FileInfo>
+</analyzerinfo>

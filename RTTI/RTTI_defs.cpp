@@ -80,11 +80,15 @@ namespace RTTI
 		}
 		else
 		{
-			for (auto iter = cbegin(); iter != cend() && !pProtocol; ++iter)
+			auto iterParent = std::find_if(cbegin(), cend(), [&](const auto& pParent)
+				{
+					return pParent->getProtocolExt(pDef);
+				});
+
+			if (iterParent != cend())
 			{
-				pProtocol = (*iter)->getProtocolExt(pDef);
+				pProtocol = (*iterParent)->getProtocolExt(pDef);
 			}
-			//
 		}
 		return pProtocol;
 	}
@@ -150,6 +154,7 @@ namespace RTTI
 
 	const char* Exception::what()const
 	{
-		return message().c_str();
+		// NOT USED
+		return nullptr;
 	}
 }

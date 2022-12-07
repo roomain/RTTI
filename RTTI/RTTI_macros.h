@@ -19,29 +19,29 @@ private:\
 	static inline std::shared_ptr<ClassDefinition<classname>> m_definition = nullptr;\
 \
 public: \
-	static inline std::shared_ptr<IDefinition> const definition()noexcept\
+	[[nodiscard]] static inline std::shared_ptr<IDefinition> const definition()noexcept\
 	{\
 		return m_definition; \
 	}\
 	\
-	virtual inline std::shared_ptr<IDefinition> const isA()const noexcept\
+	[[nodiscard]] virtual inline std::shared_ptr<IDefinition> const isA()const noexcept\
 	{\
 		return classname::m_definition;\
 	}\
-	virtual inline bool isKindOf(const std::shared_ptr<IDefinition>& def)const \
+	[[nodiscard]] virtual inline bool isKindOf(const std::shared_ptr<IDefinition>& def)const\
 	{\
 		checkNotDefined<classname>();\
 		return classname::m_definition->isKindOf(def);\
 	}\
 	\
-	template<typename Type>\
-	bool isKindOf()const noexcept\
+	template<typename Type> \
+	[[nodiscard]] bool isKindOf()const\
 	{\
 		return isKindOf(Type::definition());\
 	}\
 	\
 	template<typename Type>\
-	Type* const cast()const noexcept \
+	[[nodiscard]] Type* const cast()const\
 	{\
 		Type* pRet = nullptr; \
 		if (isKindOf(Type::definition()))\
@@ -51,7 +51,7 @@ public: \
 		return pRet;\
 	}\
 	\
-	static constexpr size_t classMemorySize()noexcept \
+	[[nodiscard]] static constexpr size_t classMemorySize() noexcept \
 	{\
 		return sizeof(classname);\
 	}\
