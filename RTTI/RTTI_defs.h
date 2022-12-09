@@ -164,14 +164,16 @@ namespace RTTI
 
 	private:
 		Type			m_exceptionType;
-		std::string		m_info;
+		std::string		m_message;
+
+		void genMessage(std::string_view&& info);
 
 	public:
-		explicit Exception(Type errType, const std::string& info = "");
+		explicit Exception(Type errType, std::string_view&& info = "");
 		Exception() = delete;
 		[[nodiscard]] Type type()const noexcept;
 		[[nodiscard]] std::string message()const noexcept;
-		const char* what()const override;/*!< NOT USED*/
+		const char* what()const override;
 	};
 
 	template<typename Type, typename ...others>
@@ -189,8 +191,8 @@ namespace RTTI
 	template<typename Type, typename ...others>
 	void checkAllreadyDefined()
 	{
-	if(Type::definition())
-	    throw Exception(Exception::Type::already_defined, Type::definition()->className());
+		if(Type::definition())
+		    throw Exception(Exception::Type::already_defined, Type::definition()->className());
 		checkAllreadyDefinedAux(std::tuple<others...>());
 	}
 

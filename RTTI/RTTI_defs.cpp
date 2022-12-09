@@ -1,4 +1,5 @@
 #pragma once
+#include <format>
 #include "RTTI_defs.h"
 #include "ProtocolExtension.h"
 
@@ -95,9 +96,9 @@ namespace RTTI
 
 	//----------------------------------------------------------------------------------------------------------------------
 
-	Exception::Exception(Exception::Type errType, const std::string& info) : m_exceptionType{ errType }, m_info{ info }
+	Exception::Exception(Exception::Type errType, std::string_view&& info) : m_exceptionType{ errType }
 	{
-		//
+		genMessage(std::move(info));
 	}
 
 	Exception::Type Exception::type()const noexcept
@@ -107,21 +108,25 @@ namespace RTTI
 
 	std::string Exception::message()const noexcept
 	{
-		std::string errMes;
-		if (m_info.empty())
+		return m_message;
+	}
+
+	void Exception::genMessage(std::string_view&& info)
+	{
+		if (info.empty())
 		{
 			switch (m_exceptionType)
 			{
 			case Type::parent_not_defined:
-				errMes = "Parent Definition does not exist";
+				m_message = "Parent Definition does not exist";
 				break;
 
 			case Type::null_definition:
-				errMes = "Definition is null";
+				m_message = "Definition is null";
 				break;
 
 			case Type::already_defined:
-				errMes = "Definition already exists";
+				m_message = "Definition already exists";
 				break;
 
 			default:
@@ -133,28 +138,25 @@ namespace RTTI
 			switch (m_exceptionType)
 			{
 			case Type::parent_not_defined:
-				errMes = "Parent (" + m_info + ") definition does not exist";
+				m_message = std::format("Parent ({}) definition does not exist", info);
 				break;
 
 			case Type::null_definition:
-				errMes = m_info + " definition is null";
+				m_message = std::format("{} definition is null", info);
 				break;
 
 			case Type::already_defined:
-				errMes = m_info + " definition already exists";
+				m_message = std::format("{} definition already exists", info);
 				break;
 
 			default:
 				break;
 			}
 		}
-
-		return errMes;
 	}
 
 	const char* Exception::what()const
 	{
-		// NOT USED
-		return nullptr;
+		return m_message.c_str();
 	}
 }

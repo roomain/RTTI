@@ -25,7 +25,7 @@ private:
 	int	m_iData;
 
 public:
-	RTTIParent(const int iVal);
+	explicit RTTIParent(const int iVal);
 	RTTIParent();
 	int data()const;
 };
@@ -37,7 +37,7 @@ private:
 	double	m_dData;
 
 public:
-	RTTIParent1(const double& m_dData);
+	explicit RTTIParent1(const double& m_dData);
 	RTTIParent1();
 	double data1()const;
 };
@@ -46,7 +46,7 @@ class RTTIFirstChild : public RTTIParent
 {
 	RTTI_DEFINITIONS(3, RTTIFirstChild, RTTIParent)
 public:
-	RTTIFirstChild(const int iVal);
+	explicit RTTIFirstChild(const int iVal);
 	RTTIFirstChild();
 };
 
@@ -54,7 +54,7 @@ class RTTISecondChild : public RTTIParent
 {
 	RTTI_DEFINITIONS(4, RTTISecondChild, RTTIParent)
 public:
-	RTTISecondChild(const int iVal);
+	explicit RTTISecondChild(const int iVal);
 	RTTISecondChild();
 };
 
@@ -63,7 +63,7 @@ class RTTIGrandChild : public RTTIFirstChild
 {
 	RTTI_DEFINITIONS(5, RTTIGrandChild, RTTIFirstChild)
 public:
-	RTTIGrandChild(const int iVal);
+	explicit RTTIGrandChild(const int iVal);
 	RTTIGrandChild();
 };
 
@@ -71,7 +71,7 @@ class RTTISecondChildMult : public RTTIParent, public RTTIParent1
 {
 	RTTI_DEFINITIONS(6, RTTISecondChildMult, RTTIParent, RTTIParent1)
 public:
-	RTTISecondChildMult(const int iVal, const double& dValue);
+	explicit RTTISecondChildMult(const int iVal, const double& dValue);
 	RTTISecondChildMult();
 };
 

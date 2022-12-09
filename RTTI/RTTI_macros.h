@@ -13,7 +13,7 @@ using namespace RTTI;
 //----------------------------------------------------------------------------------------------------------------------------------------
 /// @brief Generates RTTI inline functions
 //----------------------------------------------------------------------------------------------------------------------------------------
-#define RTTI_BASE_FUNCTIONS(classname)\
+#define RTTI_STATIC_FUNCTIONS(classname)\
 	friend class ClassDefinition<classname>; \
 private:\
 	static inline std::shared_ptr<ClassDefinition<classname>> m_definition = nullptr;\
@@ -23,6 +23,13 @@ public: \
 	{\
 		return m_definition; \
 	}\
+	\
+	[[nodiscard]] static constexpr size_t classMemorySize() noexcept \
+	{\
+		return sizeof(classname);\
+	}\
+
+#define RTTI_BASE_FUNCTIONS(classname)\
 	\
 	[[nodiscard]] virtual inline std::shared_ptr<IDefinition> const isA()const noexcept\
 	{\
@@ -50,16 +57,42 @@ public: \
 		}\
 		return pRet;\
 	}\
+
+
+#define RTTI_BASE_OVERRIDED_FUNCTIONS(classname)\
 	\
-	[[nodiscard]] static constexpr size_t classMemorySize() noexcept \
+	[[nodiscard]] virtual inline std::shared_ptr<IDefinition> const isA()const noexcept override\
 	{\
-		return sizeof(classname);\
+		return classname::m_definition;\
+	}\
+	[[nodiscard]] virtual inline bool isKindOf(const std::shared_ptr<IDefinition>& def)const override\
+	{\
+		checkNotDefined<classname>();\
+		return classname::m_definition->isKindOf(def);\
+	}\
+	\
+	template<typename Type> \
+	[[nodiscard]] bool isKindOf()const\
+	{\
+		return isKindOf(Type::definition());\
+	}\
+	\
+	template<typename Type>\
+	[[nodiscard]] Type* const cast()const\
+	{\
+		Type* pRet = nullptr; \
+		if (isKindOf(Type::definition()))\
+		{\
+			pRet = const_cast<Type*>(dynamic_cast<const Type*>(this));\
+		}\
+		return pRet;\
 	}\
 
 //---------------------------------------------------------------------------------------------
 /// @brief RTTI definition for a class
 //---------------------------------------------------------------------------------------------
 #define RTTI_DEFINITION(Version, classname)\
+RTTI_STATIC_FUNCTIONS(classname)\
 RTTI_BASE_FUNCTIONS(classname)\
 public: \
 	static inline void initDef() \
@@ -71,7 +104,8 @@ public: \
 
 
 #define RTTI_DEFINITIONS(Version, classname, ...)\
-RTTI_BASE_FUNCTIONS(classname)\
+RTTI_STATIC_FUNCTIONS(classname)\
+RTTI_BASE_OVERRIDED_FUNCTIONS(classname)\
 public: \
 	static inline void initDef() \
 	{\
