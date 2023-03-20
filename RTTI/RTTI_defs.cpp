@@ -105,7 +105,7 @@ namespace RTTI
 		return m_exceptionType;
 	}
 
-	std::string Exception::message()const noexcept
+	const std::string& Exception::message()const noexcept
 	{
 		std::string errMes;
 		if (m_info.empty())
