@@ -241,18 +241,18 @@ namespace TestsRTTI
 			RTTISecondChildMult* pMult = new RTTISecondChildMult(5, 3.2);
 
 			// test cast OK
-			RTTIParent* pCasRTTIParent = pfirstchild->cast<RTTIParent>();
-			pfirstchild->isKindOf(RTTIParent::definition());
+			RTTIParent* const pCasRTTIParent = pfirstchild->cast<RTTIParent>();
+			Assert::IsTrue(pfirstchild->isKindOf(RTTIParent::definition()), L"pfirstchild->isKindOf(RTTIParent::definition())");
 			Assert::IsTrue(pCasRTTIParent != nullptr, L"pfirstchild->cast<RTTIParent>()");
 
-			RTTIParent* pCasRTTIParent1 = pMult->cast<RTTIParent>();
+			RTTIParent* const pCasRTTIParent1 = pMult->cast<RTTIParent>();
 			Assert::IsTrue(pCasRTTIParent1 != nullptr, L"pMult->cast<RTTIParent>()");
 			Assert::IsTrue(pCasRTTIParent1->data() == 5, L"pCasRTTIParent1->data() == 5");
-			RTTIParent1* pCasRTTIParent2 = pMult->cast<RTTIParent1>();
+			RTTIParent1* const pCasRTTIParent2 = pMult->cast<RTTIParent1>();
 			Assert::IsTrue(pCasRTTIParent2 != nullptr, L"pMult->cast<RTTIParent>()");
 			Assert::IsTrue(pCasRTTIParent2->data1() == 3.2, L"pCasRTTIParent2->data1()");
 
-			RTTIParent* pCasRTTIParent3 = pGrandChild->cast<RTTIParent>();
+			RTTIParent* const pCasRTTIParent3 = pGrandChild->cast<RTTIParent>();
 			Assert::IsTrue(pCasRTTIParent3 != nullptr, L"pGrandChild->cast<RTTIParent>()");
 			RTTIFirstChild* pCasRTTIFirstChild = pGrandChild->cast<RTTIFirstChild>();
 			Assert::IsTrue(pCasRTTIFirstChild != nullptr, L"pMult->cast<RTTIFirstChild>()");

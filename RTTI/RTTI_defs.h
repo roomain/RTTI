@@ -18,34 +18,41 @@ namespace RTTI
 	template<typename Def>
 	class DefinitionNode : public std::enable_shared_from_this<DefinitionNode<Def>>
 	{
-	protected:
+	private:
 		using DefinitionPtr = std::shared_ptr<Def>;
 		std::vector<DefinitionPtr> m_vParentsDef;	/*!< link to parent definitions*/
 
+	protected:
 		/*iterators on parents*/
 		inline auto cbegin()const noexcept { return m_vParentsDef.cbegin(); }
 		inline auto cend()const noexcept { return m_vParentsDef.cend(); }
 
 		DefinitionNode() = default;
-		DefinitionNode(std::initializer_list<DefinitionPtr> a_init) : m_vParentsDef{ a_init }
+		explicit DefinitionNode(std::initializer_list<DefinitionPtr> a_init) : m_vParentsDef{ a_init }
 		{
 			//
 		}
 
-		~DefinitionNode()
+		template<typename DerivedDef> requires(std::derived_from<DerivedDef, Def> == true)
+		explicit DefinitionNode(const std::vector<std::shared_ptr<DerivedDef>>& a_init) : m_vParentsDef{ a_init }
 		{
+			//
+		}
+
+		virtual ~DefinitionNode() = default;
+		/* {
 			// get reference count of this
 			//assert(weak_from_this().use_count() == 0, "Class is always referenced !");
-		}
+		}*/
 
 		/*
 		* @brief check if this inherits from pDef (search recursively)
 		* @param pDef: RTTI definition
 		* @return true if this inherist from pDef
 		*/
-		[[nodiscard]]inline bool inheritFrom(const DefinitionPtr& pDef)const noexcept
+		[[nodiscard]]inline bool inheritFrom(const DefinitionPtr& pDef)const
 		{
-			bool bFound = std::find(m_vParentsDef.begin(), m_vParentsDef.end(), pDef) != m_vParentsDef.end();
+			bool bFound = std::ranges::find(m_vParentsDef, pDef) != m_vParentsDef.end();
 			if (!bFound)
 			{
 				for (auto&& curdef : m_vParentsDef)
@@ -62,16 +69,17 @@ namespace RTTI
 	    
 	class IDefinition : public DefinitionNode<IDefinition>
 	{
-	protected:
+	private:
 		std::string m_sClassName;										/*!< class name*/
 		unsigned short m_usVersion;										/*!< version of definition*/
 		std::shared_ptr<UndoRedoProtocolExtension> m_pUndoRedoPE;		/*!< undo/redo protocol extension*/
 		std::vector<std::shared_ptr<ProtocolExtension>>	m_vProtocoleExt;/*!< link to generic protocols extensions*/
 
+	protected:
 		IDefinition() = delete;
 		IDefinition(const std::string& a_className, const unsigned short a_usVers);
 		IDefinition(const std::string& a_className, const unsigned short a_usVers, const std::vector<std::shared_ptr<IDefinition>>& a_init);
-
+		virtual ~IDefinition() = default;
 	public:
 
 		/*@brief set undo/redo protocol extension*/
@@ -166,10 +174,10 @@ namespace RTTI
 		Type			m_exceptionType;
 		std::string		m_message;
 
-		void genMessage(std::string_view&& info);
+		void genMessage(std::string_view info);
 
 	public:
-		explicit Exception(Type errType, std::string_view&& info = "");
+		explicit Exception(Type errType, std::string_view info = "");
 		Exception() = delete;
 		[[nodiscard]] Type type()const noexcept;
 		[[nodiscard]] std::string message()const noexcept;

@@ -10,10 +10,9 @@ namespace RTTI
 		//
 	}
 
-	IDefinition::IDefinition(const std::string& a_className, const unsigned short a_usVers, const std::vector<std::shared_ptr<IDefinition>>& a_init) : m_sClassName{ a_className }, m_usVersion{ a_usVers }
+	IDefinition::IDefinition(const std::string& a_className, const unsigned short a_usVers, const std::vector<std::shared_ptr<IDefinition>>& a_init) : DefinitionNode(a_init), m_sClassName{ a_className }, m_usVersion{ a_usVers }
 	{
-		for (auto parentDef : a_init)
-			m_vParentsDef.push_back(parentDef);
+		//
 	}
 
 
@@ -33,18 +32,16 @@ namespace RTTI
 	{
 		if (protocol)
 		{
-			using protocolExtIter = std::vector<std::shared_ptr<ProtocolExtension>>::iterator;
-			protocolExtIter iter = std::find_if(m_vProtocoleExt.begin(), m_vProtocoleExt.end(), [&](auto curProt)
+			auto iter = std::ranges::find_if(m_vProtocoleExt, [&protocol](auto curProt)
 				{
 					return curProt->isKindOf(protocol->isA()) || protocol->isKindOf(curProt->isA());
 				});
 
+			// remove old similar protocole
 			if (iter != m_vProtocoleExt.end())
-			{
 				m_vProtocoleExt.erase(iter);
-			}
 
-			m_vProtocoleExt.push_back(protocol);
+			m_vProtocoleExt.emplace_back(protocol);
 		}
 	}
 
@@ -52,7 +49,7 @@ namespace RTTI
 	{
 		bool bRet = false;
 		using protocolExtIter = std::vector<std::shared_ptr<ProtocolExtension>>::iterator;
-		protocolExtIter iter = std::find_if(m_vProtocoleExt.begin(), m_vProtocoleExt.end(), [&](auto curProt)
+		auto iter = std::ranges::find_if(m_vProtocoleExt, [&pDef](auto curProt)
 			{
 				return curProt->isKindOf(pDef);
 			});
@@ -70,7 +67,7 @@ namespace RTTI
 		std::shared_ptr<ProtocolExtension> pProtocol = nullptr;
 
 		using protocolExtIter = std::vector<std::shared_ptr<ProtocolExtension>>::const_iterator;
-		protocolExtIter iter = std::find_if(m_vProtocoleExt.cbegin(), m_vProtocoleExt.cend(), [&](const auto curProt)
+		auto iter = std::ranges::find_if(m_vProtocoleExt, [&pDef](const auto curProt)
 			{
 				return curProt->isKindOf(pDef);
 			});
@@ -81,7 +78,7 @@ namespace RTTI
 		}
 		else
 		{
-			auto iterParent = std::find_if(cbegin(), cend(), [&](const auto& pParent)
+			auto iterParent = std::find_if(cbegin(), cend(), [&pDef](const auto& pParent)
 				{
 					return pParent->getProtocolExt(pDef);
 				});
@@ -96,9 +93,9 @@ namespace RTTI
 
 	//----------------------------------------------------------------------------------------------------------------------
 
-	Exception::Exception(Exception::Type errType, std::string_view&& info) : m_exceptionType{ errType }
+	Exception::Exception(Exception::Type errType, std::string_view info) : m_exceptionType{ errType }
 	{
-		genMessage(std::move(info));
+		genMessage(info);
 	}
 
 	Exception::Type Exception::type()const noexcept
@@ -111,7 +108,7 @@ namespace RTTI
 		return m_message;
 	}
 
-	void Exception::genMessage(std::string_view&& info)
+	void Exception::genMessage(std::string_view info)
 	{
 		if (info.empty())
 		{
