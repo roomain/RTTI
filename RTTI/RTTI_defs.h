@@ -86,7 +86,7 @@ namespace RTTI
 		[[nodiscard]] inline std::shared_ptr<UndoRedoProtocolExtension> undoRedoPE()const noexcept { return m_pUndoRedoPE; }
 
 		/*@brief get undo/redo protocol extension*/
-		void setUndoRedoPE(std::shared_ptr<UndoRedoProtocolExtension> protocolExt) { m_pUndoRedoPE = protocolExt; }
+		void setUndoRedoPE(const std::shared_ptr<UndoRedoProtocolExtension>& protocolExt) { m_pUndoRedoPE = protocolExt; }
 
 		/*
 		* @brief check is defined class is inherited from class defined by pDef
@@ -98,7 +98,7 @@ namespace RTTI
 		/*
 		* @return class name
 		*/
-		[[nodiscard]] inline std::string className()const { return m_sClassName; }
+		[[nodiscard]] inline const std::string& className()const { return m_sClassName; }
 
 		/*
 		* @brief check is defined class is same class defined by pDef
@@ -148,7 +148,7 @@ namespace RTTI
 			//auto pFun = [&](char* buffer) {return  std::dynamic_pointer_cast<CadKernelObject>(std::shared_ptr<Class>(reinterpret_cast<Class*>(buffer))); };
 		}
 
-		[[nodiscard]] inline std::shared_ptr<Class> createObject()
+		[[nodiscard]] inline std::shared_ptr<Class> createObject()const
 		{
 			return std::make_shared<Class>();
 		}
@@ -180,8 +180,8 @@ namespace RTTI
 		explicit Exception(Type errType, std::string_view info = "");
 		Exception() = delete;
 		[[nodiscard]] Type type()const noexcept;
-		[[nodiscard]] std::string message()const noexcept;
-		const char* what()const override;
+		[[nodiscard]] const std::string& message()const noexcept;
+		const char* what()const override;/*!< NOT USED*/
 	};
 
 	template<typename Type, typename ...others>
@@ -243,6 +243,7 @@ namespace RTTI
 			internfillVec<args...>(vec);
 		}
 
+		/*@brief list the definitions of arguments*/
 		template<typename A, typename... args>
 		static void internfillVec(std::vector<IDefinitionPtr>& vec)
 		{
