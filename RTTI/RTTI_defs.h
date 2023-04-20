@@ -23,9 +23,8 @@ namespace RTTI
 		std::vector<DefinitionPtr> m_vParentsDef;	/*!< link to parent definitions*/
 
 	protected:
-		/*iterators on parents*/
-		inline auto cbegin()const noexcept { return m_vParentsDef.cbegin(); }
-		inline auto cend()const noexcept { return m_vParentsDef.cend(); }
+		inline const std::vector<DefinitionPtr>& parentDef()const noexcept { return m_vParentsDef; }
+
 
 		DefinitionNode() = default;
 		explicit DefinitionNode(std::initializer_list<DefinitionPtr> a_init) : m_vParentsDef{ a_init }
@@ -180,17 +179,17 @@ namespace RTTI
 		explicit Exception(Type errType, std::string_view info = "");
 		Exception() = delete;
 		[[nodiscard]] Type type()const noexcept;
-		[[nodiscard]] const std::string& message()const noexcept;
+		[[nodiscard]] std::string message()const noexcept;
 		const char* what()const override;/*!< NOT USED*/
 	};
 
 	template<typename Type, typename ...others>
 	void checkAllreadyDefined();
 
-	inline void checkAllreadyDefinedAux(std::tuple<>&& a_tuple) {}
+	inline void checkAllreadyDefinedAux(std::tuple<>&& ) {/*empty template end of check*/ }
 
 	template<typename ...others>
-	void checkAllreadyDefinedAux(std::tuple<others...>&& a_tuple)
+	void checkAllreadyDefinedAux(std::tuple<others...>&& )
 	{
 		return checkAllreadyDefined<others...>();
 	}
@@ -210,10 +209,10 @@ namespace RTTI
 	template<typename Type, typename ...others>
 	void checkNotDefined();
 
-	inline void checkNotDefinedAux(std::tuple<>&& a_tuple) {}
+	inline void checkNotDefinedAux(std::tuple<>&& ) {/*empty template end of check*/ }
 
 	template<typename ...others>
-	void checkNotDefinedAux(std::tuple<others...>&& a_tuple)
+	void checkNotDefinedAux(std::tuple<others...>&& )
 	{
 		return checkNotDefined<others...>();
 	}
@@ -235,10 +234,10 @@ namespace RTTI
 	private:
 		std::vector<IDefinitionPtr> m_vDefs;
 
-		static inline void internfillVecAux(std::vector<IDefinitionPtr>& vec, std::tuple<>&& empty) { }
+		static inline void internfillVecAux(std::vector<IDefinitionPtr>& , std::tuple<>&& ) {/*empty template end of fill*/ }
 
 		template<typename... args>
-		static void internfillVecAux(std::vector<IDefinitionPtr>& vec, std::tuple<args...>&& empty)
+		static void internfillVecAux(std::vector<IDefinitionPtr>& vec, std::tuple<args...>&& )
 		{
 			internfillVec<args...>(vec);
 		}
@@ -247,7 +246,7 @@ namespace RTTI
 		template<typename A, typename... args>
 		static void internfillVec(std::vector<IDefinitionPtr>& vec)
 		{
-			vec.push_back(A::definition());
+			vec.emplace_back(A::definition());
 			internfillVecAux(vec, std::tuple<args...>());
 		}
 

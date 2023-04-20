@@ -32,62 +32,45 @@ namespace RTTI
 	{
 		if (protocol)
 		{
-			auto iter = std::ranges::find_if(m_vProtocoleExt, [&protocol](auto curProt)
+			std::erase_if(m_vProtocoleExt, [&protocol](const auto& curProt)
 				{
 					return curProt->isKindOf(protocol->isA()) || protocol->isKindOf(curProt->isA());
 				});
-
-			// remove old similar protocole
-			if (iter != m_vProtocoleExt.end())
-				m_vProtocoleExt.erase(iter);
-
+			
 			m_vProtocoleExt.emplace_back(protocol);
 		}
 	}
 
 	bool IDefinition::unregisterProtocolExt(const std::shared_ptr<IDefinition>& pDef)
 	{
-		bool bRet = false;
-		using protocolExtIter = std::vector<std::shared_ptr<ProtocolExtension>>::iterator;
-		auto iter = std::ranges::find_if(m_vProtocoleExt, [&pDef](auto curProt)
+		return m_vProtocoleExt.size() != std::erase_if(m_vProtocoleExt, [&pDef](const auto& curProt)
 			{
 				return curProt->isKindOf(pDef);
 			});
-
-		if (iter != m_vProtocoleExt.end())
-		{
-			m_vProtocoleExt.erase(iter);
-			bRet = true;
-		}
-		return bRet;
 	}
 
 	std::shared_ptr<ProtocolExtension> IDefinition::getProtocolExt(const std::shared_ptr<IDefinition>& pDef)const
 	{
-		std::shared_ptr<ProtocolExtension> pProtocol = nullptr;
-
-		using protocolExtIter = std::vector<std::shared_ptr<ProtocolExtension>>::const_iterator;
-		auto iter = std::ranges::find_if(m_vProtocoleExt, [&pDef](const auto curProt)
+		std::shared_ptr<ProtocolExtension> pProtocol;
+		auto iterProtocol = std::ranges::find_if(m_vProtocoleExt, [&pDef](const auto& a_pCurProtocol)
 			{
-				return curProt->isKindOf(pDef);
+				return a_pCurProtocol->isKindOf(pDef);
 			});
 
-		if (iter != m_vProtocoleExt.cend())
+		if (iterProtocol != m_vProtocoleExt.cend())
 		{
-			pProtocol = *iter;
+			pProtocol = *iterProtocol;
 		}
 		else
 		{
-			auto iterParent = std::find_if(cbegin(), cend(), [&pDef](const auto& pParent)
-				{
-					return pParent->getProtocolExt(pDef);
-				});
-
-			if (iterParent != cend())
+			for (const auto& pCurProtocol : parentDef())
 			{
-				pProtocol = (*iterParent)->getProtocolExt(pDef);
+				pProtocol = pCurProtocol->getProtocolExt(pDef);
+				if (pProtocol)
+					break;
 			}
 		}
+		
 		return pProtocol;
 	}
 
@@ -103,7 +86,7 @@ namespace RTTI
 		return m_exceptionType;
 	}
 
-	const std::string& Exception::message()const noexcept
+	std::string Exception::message()const noexcept
 	{
 		return m_message;
 	}
