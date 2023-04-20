@@ -52,9 +52,7 @@ public: \
 	{\
 		Type* pRet = nullptr; \
 		if (isKindOf(Type::definition()))\
-		{\
 			pRet = const_cast<Type*>(dynamic_cast<const Type*>(this));\
-		}\
 		return pRet;\
 	}\
 
@@ -82,9 +80,7 @@ public: \
 	{\
 		Type* pRet = nullptr; \
 		if (isKindOf(Type::definition()))\
-		{\
 			pRet = const_cast<Type*>(dynamic_cast<const Type*>(this));\
-		}\
 		return pRet;\
 	}\
 

@@ -49,18 +49,13 @@ namespace RTTI
 		* @param pDef: RTTI definition
 		* @return true if this inherist from pDef
 		*/
-		[[nodiscard]]inline bool inheritFrom(const DefinitionPtr& pDef)const
+		[[nodiscard]]inline bool inheritFrom(const DefinitionPtr& a_pDef)const
 		{
-			bool bFound = std::ranges::find(m_vParentsDef, pDef) != m_vParentsDef.end();
+			bool bFound = std::ranges::find(m_vParentsDef, a_pDef) != m_vParentsDef.end();
 			if (!bFound)
-			{
-				for (auto&& curdef : m_vParentsDef)
-				{
-					bFound = curdef->inheritFrom(pDef);
-					if (bFound)
-						break;
-				}
-			}
+				bFound = std::ranges::find_if(m_vParentsDef, [&a_pDef](auto&& a_curdef) 
+					{return a_curdef->inheritFrom(a_pDef); }) != m_vParentsDef.end();
+			
 			return bFound;
 		}
 	};
