@@ -74,8 +74,8 @@ namespace RTTI
 		IDefinition(const std::string& a_className, const unsigned short a_usVers);
 		IDefinition(const std::string& a_className, const unsigned short a_usVers, const std::vector<std::shared_ptr<IDefinition>>& a_init);
 		virtual ~IDefinition() = default;
-	public:
 
+	public:
 		/*@brief set undo/redo protocol extension*/
 		[[nodiscard]] inline std::shared_ptr<UndoRedoProtocolExtension> undoRedoPE()const noexcept { return m_pUndoRedoPE; }
 
@@ -92,7 +92,7 @@ namespace RTTI
 		/*
 		* @return class name
 		*/
-		[[nodiscard]] inline const std::string& className()const { return m_sClassName; }
+		[[nodiscard]] inline const std::string className()const { return m_sClassName; }
 
 		/*
 		* @brief check is defined class is same class defined by pDef
