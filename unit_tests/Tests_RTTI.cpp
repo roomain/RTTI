@@ -38,8 +38,11 @@ namespace TestsRTTI
 			if (nullptr == RTTISecondChildMult::definition())
 				RTTISecondChildMult::initDef();
 
-			if (nullptr == RTTISecondChildMult::definition())
-				RTTISecondChildMult::initDef();
+			if (nullptr == RTTIPureVirtualClass::definition())
+				RTTIPureVirtualClass::initDef();
+
+			if (nullptr == RTTIDerivedFromPureVirtual::definition())
+				RTTIDerivedFromPureVirtual::initDef();
 
 			if (nullptr == RTTIDecorator<RTTIParent>::definition())
 				RTTIDecorator<RTTIParent>::initDef();
@@ -96,6 +99,12 @@ namespace TestsRTTI
 			delete pSecondChild;
 			delete pGrandChild;
 
+		}
+
+		TEST_METHOD(TestIsKindOf_fromPureVirtual)
+		{
+			RTTIDerivedFromPureVirtual object;
+			Assert::IsTrue(object.isKindOf(RTTIPureVirtualClass::definition()), L"object.isKindOf(RTTIPureVirtualClass::definition())");
 		}
 
 		TEST_METHOD(TestIsKindOf)

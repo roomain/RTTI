@@ -10,8 +10,8 @@
 /*@brief base class of protocol extension used for RTTI*/
 class ProtocolExtension
 {
-    RTTI_DEFINITION(1, ProtocolExtension)
-
-protected:
-    ProtocolExtension() {}
+    DECLARE_RTTI(1, ProtocolExtension)
+public:
+    ProtocolExtension() = default;
+    virtual ~ProtocolExtension() = default;
 };

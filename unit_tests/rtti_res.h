@@ -2,25 +2,27 @@
 #include "RTTI_macros.h"
 #include "Protocolextension.h"
 
-
-
-class ParentPE : public ProtocolExtension
+class RTTIPureVirtualClass
 {
-	RTTI_DEFINITIONS(1, ParentPE, ProtocolExtension)
+	DECLARE_RTTI(1, RTTIPureVirtualClass)
 public:
-	virtual int testPE()const noexcept { return 0; }
+	explicit RTTIPureVirtualClass() = default;
+	virtual ~RTTIPureVirtualClass() = default;
+	virtual float data()const = 0;
 };
 
-class ChildPE : public ParentPE
+class RTTIDerivedFromPureVirtual : public RTTIPureVirtualClass
 {
-	RTTI_DEFINITIONS(1, ChildPE, ParentPE)
+	DECLARE_RTTI_DERIVED(1, RTTIDerivedFromPureVirtual, RTTIPureVirtualClass)
 public:
-	virtual int testPE()const noexcept override { return 10; }
+	explicit RTTIDerivedFromPureVirtual() = default;
+	~RTTIDerivedFromPureVirtual() = default;
+	float data()const override{ return 1.5f; }
 };
 
 class RTTIParent
 {
-	RTTI_DEFINITION(1, RTTIParent)
+	DECLARE_RTTI(1, RTTIParent)
 private:
 	int	m_iData;
 
@@ -30,9 +32,10 @@ public:
 	int data()const;
 };
 
+
 class RTTIParent1
 {
-	RTTI_DEFINITION(2, RTTIParent1)
+	DECLARE_RTTI(2, RTTIParent1)
 private:
 	double	m_dData;
 
@@ -42,9 +45,25 @@ public:
 	double data1()const;
 };
 
+class ParentPE : public ProtocolExtension
+{
+	DECLARE_RTTI_DERIVED(1, ParentPE, ProtocolExtension)
+public:
+	virtual int testPE()const noexcept { return 0; }
+};
+
+class ChildPE : public ParentPE
+{
+	DECLARE_RTTI_DERIVED(1, ChildPE, ParentPE)
+public:
+	virtual int testPE()const noexcept override { return 10; }
+};
+
+
+
 class RTTIFirstChild : public RTTIParent
 {
-	RTTI_DEFINITIONS(3, RTTIFirstChild, RTTIParent)
+	DECLARE_RTTI_DERIVED(3, RTTIFirstChild, RTTIParent)
 public:
 	explicit RTTIFirstChild(const int iVal);
 	RTTIFirstChild();
@@ -52,7 +71,7 @@ public:
 
 class RTTISecondChild : public RTTIParent
 {
-	RTTI_DEFINITIONS(4, RTTISecondChild, RTTIParent)
+	DECLARE_RTTI_DERIVED(4, RTTISecondChild, RTTIParent)
 public:
 	explicit RTTISecondChild(const int iVal);
 	RTTISecondChild();
@@ -61,7 +80,7 @@ public:
 
 class RTTIGrandChild : public RTTIFirstChild
 {
-	RTTI_DEFINITIONS(5, RTTIGrandChild, RTTIFirstChild)
+	DECLARE_RTTI_DERIVED(5, RTTIGrandChild, RTTIFirstChild)
 public:
 	explicit RTTIGrandChild(const int iVal);
 	RTTIGrandChild();
@@ -69,7 +88,7 @@ public:
 
 class RTTISecondChildMult : public RTTIParent, public RTTIParent1
 {
-	RTTI_DEFINITIONS(6, RTTISecondChildMult, RTTIParent, RTTIParent1)
+	DECLARE_RTTI_DERIVED(6, RTTISecondChildMult, RTTIParent, RTTIParent1)
 public:
 	explicit RTTISecondChildMult(const int iVal, const double& dValue);
 	RTTISecondChildMult();
@@ -78,7 +97,7 @@ public:
 template<typename Type>
 class RTTIDecorator : public Type
 {
-	RTTI_DEFINITIONS(7, RTTIDecorator<Type>, Type)
+	DECLARE_RTTI_DERIVED(7, RTTIDecorator<Type>, Type)
 public:
 	RTTIDecorator() {}
 };
