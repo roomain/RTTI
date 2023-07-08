@@ -19,11 +19,6 @@ bool RTTIDefinition::isKindOf(const std::shared_ptr<RTTIDefinition>& pDef)const 
 	return bIsKindOf;
 }
 
-bool RTTIDefinition::isSame(const std::shared_ptr<RTTIDefinition>& pDef)const noexcept
-{
-	return pDef.get() == this;
-}
-
 void RTTIDefinition::registerProtocolExt(const std::shared_ptr<ProtocolExtension>& a_protocol)
 {
 	if (a_protocol)
@@ -65,7 +60,7 @@ std::shared_ptr<ProtocolExtension> RTTIDefinition::getProtocolExt(const std::sha
 	return pProtocolExt;
 }
 
-bool RTTIDefinition::inheritFrom(const std::shared_ptr<RTTIDefinition>& a_pDef)const
+/*bool RTTIDefinition::inheritFrom(const std::shared_ptr<RTTIDefinition>& a_pDef)const
 {
 	bool bFound = std::ranges::find(m_vParent, a_pDef) != m_vParent.end();
 	if (!bFound)
@@ -73,5 +68,5 @@ bool RTTIDefinition::inheritFrom(const std::shared_ptr<RTTIDefinition>& a_pDef)c
 			{return a_curdef->inheritFrom(a_pDef); }) != m_vParent.end();
 
 	return bFound;
-}
+}*/
 

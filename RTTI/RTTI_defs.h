@@ -23,7 +23,16 @@ private:
 	std::string m_className;								/*!< name of defined class*/
 	std::vector<ProtocolExtension_Ptr> m_extensions;		/*!< functional extensions*/
 
-	[[nodiscard]] bool inheritFrom(const std::shared_ptr<RTTIDefinition>& a_pDef)const;
+	[[nodiscard]] constexpr bool inheritFrom(const std::shared_ptr<RTTIDefinition>& a_pDef)const
+	{
+		bool bFound = std::ranges::find(m_vParent, a_pDef) != m_vParent.end();
+		if (!bFound)
+			bFound = std::ranges::find_if(m_vParent, [&a_pDef](auto&& a_curdef)
+				{return a_curdef->inheritFrom(a_pDef); }) != m_vParent.end();
+
+		return bFound;
+	}
+
 public:
 	RTTIDefinition() = delete;
 	RTTIDefinition(const std::string_view& a_name, const unsigned short a_version);
@@ -40,14 +49,17 @@ public:
 	/*
 	* @return class name
 	*/
-	[[nodiscard]] inline const std::string className()const { return m_className; }
+	[[nodiscard]] constexpr std::string_view className()const { return m_className; }
 
 	/*
 	* @brief check is defined class is same class defined by pDef
 	* @param pDef class definition to test
 	* @brief return true if defined class is same class defined by pDef
 	*/
-	[[nodiscard]] virtual bool isSame(const std::shared_ptr<RTTIDefinition>& pDef)const noexcept;
+	[[nodiscard]] inline bool isSame(const std::shared_ptr<RTTIDefinition>& pDef)const noexcept
+	{
+		return pDef.get() == this;
+	}
 
 	/*@brief register a protocol extension*/
 	void registerProtocolExt(const std::shared_ptr<ProtocolExtension>& protocol);
@@ -65,7 +77,7 @@ public:
 	}
 
 	/*@return version number of definition*/
-	[[nodiscard]] inline unsigned short version()const noexcept { return m_version; }
+	[[nodiscard]] constexpr unsigned short version()const noexcept { return m_version; }
 
 	/*@brief size of described class*/
 	[[nodiscard]] virtual size_t classSize()const noexcept = 0;

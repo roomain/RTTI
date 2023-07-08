@@ -41,7 +41,7 @@ public: \
 #define BASE_DEFINITION_MACRO(version, classname) \
 public:\
 	template<typename Type>\
-	[[nodiscard]] inline bool isTypeOf()const \
+	[[nodiscard]] constexpr bool isTypeOf()const \
 	{\
 		return std::is_same<Type, classname>::value;\
 	}\
